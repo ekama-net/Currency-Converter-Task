@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "HC2MLTOr/xAyPhOqwglnYglz937s4t53OvZybSRHnbRdfx+l8BQSC/CgbcmgvQgsU4QlAaZwXd0EvMeHmK8fWQ==",
+  "success": true,
+  "projectFilePath": "M:\\programming\\Projects\\CurrencyConverterTask\\CurrencyConverterTask\\CurrencyConverterTask.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\maksim\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
