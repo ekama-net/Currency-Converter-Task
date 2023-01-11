@@ -22,6 +22,7 @@ namespace CurrencyConverterTask
             myTimer = new Timer(myTimerCallback, "https://www.cbr-xml-daily.ru/daily_json.js",(60 - dateTime.Minute) * 60000, 3600000);
 
         }
+
         public void myTimerCallback(Object obj)
         {
             //не знаю со скольки, но после 20:00 курсы перестают обновлятся
@@ -29,34 +30,57 @@ namespace CurrencyConverterTask
             {
                 MessageBox.Show("Exchange rates have been updated");
                 rub.Model = ParseJson(obj.ToString());
-                Calculate();
             }
-        }
-
-        private void dropDownTo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Calculate();
-        }
-
-        private void numericFrom_KeyUp(object sender, KeyEventArgs e)
-        {
-            Calculate();
         }
 
         private void dropDownFrom_SelectedIndexChanged(object sender, EventArgs e)
         {
             numericFrom.Value = SelectValute(dropDownFrom.SelectedItem.ToString()[..3])?.Nominal ?? 1;
+        }
+
+        private void convertButton_Click(object sender, EventArgs e)
+        {
             Calculate();
+        }
+
+        private void logsButton_Click(object sender, EventArgs e)
+        {
+            LogForm form = new LogForm();
+            form.ShowDialog();
         }
 
         public void Calculate()
         {
+            LogModel model = null;
+            double result;
             if (numericFrom.Value > 0 && dropDownFrom.SelectedItem != null && dropDownTo.SelectedItem != null)
             {
-                var result = Convert.ToDouble(numericFrom.Value) * SelectValute(dropDownFrom.SelectedItem.ToString()[..3])?.Value ?? 1;
+                result = Convert.ToDouble(numericFrom.Value) * SelectValute(dropDownFrom.SelectedItem.ToString()[..3])?.Value ?? 1;
                 toValue.Text = Math.Round(result,2).ToString();
+                model = ConfigureLog(result);
             }
             else toValue.Text = "0";
+            
+            if (model != null)
+            {
+                using (var context = new ConverterContext())
+                {
+                    context.logModels.AddRange(model);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public LogModel ConfigureLog(double res)
+        {
+            return new LogModel
+            {
+                FromName = dropDownFrom.Text,
+                ToName = dropDownTo.Text,
+                Nominal = numericFrom.Value,
+                Result = Math.Round(res, 2),
+                Date = DateTime.Now
+            };
         }
 
         public ApiModel ParseJson(string uri)
@@ -80,7 +104,6 @@ namespace CurrencyConverterTask
                 return null;
             }
         }
-
         public ModelValute SelectValute(string shortName) => shortName switch
         {
             "RUB" => rub.Model.Valute.RUB,

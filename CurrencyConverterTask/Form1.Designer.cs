@@ -37,6 +37,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericFrom = new System.Windows.Forms.NumericUpDown();
+            this.convertButton = new System.Windows.Forms.Button();
+            this.logsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.valuteBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericFrom)).BeginInit();
             this.SuspendLayout();
@@ -106,14 +108,14 @@
             this.dropDownTo.Name = "dropDownTo";
             this.dropDownTo.Size = new System.Drawing.Size(462, 33);
             this.dropDownTo.TabIndex = 2;
-            this.dropDownTo.SelectedIndexChanged += new System.EventHandler(this.dropDownTo_SelectedIndexChanged);
             // 
             // toValue
             // 
             this.toValue.Enabled = false;
+            this.toValue.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.toValue.Location = new System.Drawing.Point(578, 148);
             this.toValue.Name = "toValue";
-            this.toValue.Size = new System.Drawing.Size(164, 31);
+            this.toValue.Size = new System.Drawing.Size(164, 34);
             this.toValue.TabIndex = 4;
             // 
             // label1
@@ -145,14 +147,36 @@
             this.numericFrom.Name = "numericFrom";
             this.numericFrom.Size = new System.Drawing.Size(164, 31);
             this.numericFrom.TabIndex = 7;
-            this.numericFrom.ValueChanged += new System.EventHandler(this.dropDownTo_SelectedIndexChanged);
-            this.numericFrom.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numericFrom_KeyUp);
+            // 
+            // convertButton
+            // 
+            this.convertButton.Location = new System.Drawing.Point(564, 199);
+            this.convertButton.Name = "convertButton";
+            this.convertButton.Size = new System.Drawing.Size(194, 53);
+            this.convertButton.TabIndex = 8;
+            this.convertButton.Text = "Convert";
+            this.convertButton.UseVisualStyleBackColor = true;
+            this.convertButton.Click += new System.EventHandler(this.convertButton_Click);
+            // 
+            // logsButton
+            // 
+            this.logsButton.BackColor = System.Drawing.SystemColors.Info;
+            this.logsButton.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.logsButton.Location = new System.Drawing.Point(1, -1);
+            this.logsButton.Name = "logsButton";
+            this.logsButton.Size = new System.Drawing.Size(50, 50);
+            this.logsButton.TabIndex = 9;
+            this.logsButton.Text = "Logs";
+            this.logsButton.UseVisualStyleBackColor = false;
+            this.logsButton.Click += new System.EventHandler(this.logsButton_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(797, 216);
+            this.ClientSize = new System.Drawing.Size(797, 264);
+            this.Controls.Add(this.logsButton);
+            this.Controls.Add(this.convertButton);
             this.Controls.Add(this.numericFrom);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -185,5 +209,7 @@
         private Label label2;
         private BindingSource valuteBindingSource;
         private NumericUpDown numericFrom;
+        private Button convertButton;
+        private Button logsButton;
     }
 }
